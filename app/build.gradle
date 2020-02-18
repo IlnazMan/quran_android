@@ -36,6 +36,10 @@ android {
     madani {
       applicationId "com.quran.labs.androidquran"
     }
+
+    qazanbasma {
+      applicationId "com.quran.labs.androidquran"
+    }
   }
 
   buildTypes {

@@ -137,7 +137,9 @@ class QuranDataPresenter @Inject internal constructor(
 
   private fun supportLegacyPages(totalPages: Int): Completable {
     return Completable.fromCallable {
-      if (!quranSettings.haveDefaultImagesDirectory() && "madani" == quranSettings.pageType) {
+      if (!quranSettings.haveDefaultImagesDirectory()
+          && ("madani" == quranSettings.pageType
+              || ("qazanbasma" == quranSettings.pageType))) {
         /* this code is only valid for the legacy madani pages.
          *
          * previously, we would send any screen widths greater than 1280
@@ -227,7 +229,9 @@ class QuranDataPresenter @Inject internal constructor(
     // if the database doesn't exist, let's try to copy it if we can. Only check this
     // if we have all the files, since if not, they come bundled with the full pages
     // zip file anyway. Note that, for now, this only applies for the madani app.
-    if ("madani" == BuildConfig.FLAVOR && !quranFileUtils.hasArabicSearchDatabase(appContext)) {
+    if (("qazanbasma" == BuildConfig.FLAVOR
+            || "madani" == BuildConfig.FLAVOR)
+        && !quranFileUtils.hasArabicSearchDatabase(appContext)) {
       val success = copyDatabaseUtil.copyArabicDatabaseFromAssets(QuranDataProvider.QURAN_ARABIC_DATABASE)
           .blockingGet()
       if (success) {

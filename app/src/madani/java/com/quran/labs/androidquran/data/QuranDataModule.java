@@ -1,6 +1,7 @@
 package com.quran.labs.androidquran.data;
 
 import com.quran.data.source.PageProvider;
+import com.quran.labs.androidquran.BuildConfig;
 import com.quran.labs.androidquran.util.QuranSettings;
 
 import java.util.Map;

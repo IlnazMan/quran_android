@@ -1,5 +1,6 @@
 package com.quran.labs.androidquran.component.application;
 
+import com.quran.data.page.provider.QBQuranPageModule;
 import com.quran.data.page.provider.QuranPageModule;
 import com.quran.labs.androidquran.QuranDataActivity;
 import com.quran.labs.androidquran.QuranForwarderActivity;
@@ -37,7 +38,9 @@ import dagger.Component;
     DatabaseModule.class,
     NetworkModule.class,
     QuranDataModule.class,
-    QuranPageModule.class } )
+    QuranPageModule.class,
+    QBQuranPageModule.class,
+} )
 public interface ApplicationComponent {
   // subcomponents
   PagerActivityComponent.Builder pagerActivityComponentBuilder();
