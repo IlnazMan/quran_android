@@ -12,10 +12,11 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.StatFs;
-
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
+import com.quran.labs.androidquran.BuildConfig;
 import com.quran.labs.androidquran.QuranApplication;
 import com.quran.labs.androidquran.data.QuranInfo;
 import com.quran.labs.androidquran.data.SuraAyah;
@@ -26,19 +27,13 @@ import com.quran.labs.androidquran.service.util.QuranDownloadNotifier.ProgressIn
 import com.quran.labs.androidquran.util.QuranSettings;
 import com.quran.labs.androidquran.util.QuranUtils;
 import com.quran.labs.androidquran.util.ZipUtils;
-
 import java.io.File;
 import java.io.IOException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import javax.inject.Inject;
-
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -310,6 +305,9 @@ public class QuranDownloadService extends Service implements
       if (startAyah != null && endAyah != null) {
         result = downloadRange(url, destination, startAyah, endAyah, isGapless, details);
       } else {
+        if (url.contains("islamic")) {
+          url += "?alt=media";
+        }
         result = download(url, destination, outputFile, details);
       }
       if (result && isZipFile) {
@@ -666,7 +664,7 @@ public class QuranDownloadService extends Service implements
   }
 
   private static String getFilenameFromUrl(String url) {
-    int slashIndex = url.lastIndexOf("/");
+    int slashIndex = url.lastIndexOf(BuildConfig.FLAVOR == "qazanbasma" ? "%2F" : "/");
     if (slashIndex != -1) {
       return url.substring(slashIndex + 1);
     }

@@ -10,7 +10,7 @@ import com.quran.labs.androidquran.pages.qazanbasma.R
 
 class KazanBasmaPageProvider : PageProvider {
   private val baseUrl = "https://android.quran.com/data"
-  private val baseUrlQB = "http://v929724g.beget.tech/data"
+  private val baseUrlQB = "https://firebasestorage.googleapis.com/v0/b/islamic-radio.appspot.com/o/data"
   private val dataSource = QazanBasmaDataSource()
 
   override fun getDataSource() = dataSource
@@ -18,11 +18,11 @@ class KazanBasmaPageProvider : PageProvider {
   override fun getPageSizeCalculator(displaySize: DisplaySize): PageSizeCalculator =
       QazanBasmaPageSizeCalculator(displaySize)
 
-  override fun getImageVersion() = 6
+  override fun getImageVersion() = -1
 
-  override fun getImagesBaseUrl() = "$baseUrlQB/"
+  override fun getImagesBaseUrl() = "$baseUrlQB%2F"
 
-  override fun getImagesZipBaseUrl() = "$baseUrlQB/zips/"
+  override fun getImagesZipBaseUrl() = "$baseUrlQB%2Fzips%2F"
 
   override fun getPatchBaseUrl() = "$baseUrl/patches/v"
 

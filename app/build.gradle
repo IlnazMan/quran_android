@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
+//apply plugin: 'io.fabric'
 apply plugin: 'net.ltgt.errorprone'
 apply plugin: 'kotlin-kapt'
 
@@ -39,7 +39,7 @@ android {
     }
 
     qazanbasma {
-      applicationId "com.quran.labs.androidquran"
+      applicationId "com.quran.labs.qazanbasma"
     }
   }
 

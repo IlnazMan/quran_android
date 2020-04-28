@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.quran.data.source.PageProvider;
 import com.quran.labs.androidquran.BuildConfig;
 import com.quran.labs.androidquran.common.Response;
 import com.quran.labs.androidquran.data.QuranDataProvider;
 import com.quran.labs.androidquran.extension.CloseableExtensionKt;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -22,11 +22,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
-
 import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -239,8 +235,13 @@ public class QuranFileUtils {
   private Response getImageFromWeb(OkHttpClient okHttpClient,
       Context context, String widthParam, String filename, boolean isRetry) {
     String urlString = IMG_BASE_URL + "width"
-        + widthParam + File.separator
+        + widthParam + (BuildConfig.FLAVOR == "qazanbasma" ? "%2F" : File.separator)
         + filename;
+
+    if (BuildConfig.FLAVOR == "qazanbasma") {
+      urlString += "?alt=media";
+    }
+
     Timber.d("want to download: %s", urlString);
 
     final Request request = new Request.Builder()

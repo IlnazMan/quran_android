@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':base-dex2jar'
 include ':common:audio'
 include ':common:data'
 include ':common:networking'
